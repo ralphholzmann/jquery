@@ -133,6 +133,7 @@ jQuery.fn.extend({
 				if ( ( p === "height" || p === "width" ) && this.style ) {
 					// Store display property
 					opt.display = jQuery.css(this, "display");
+					opt.protectDisplay = jQuery.fx.protect.test(this.tagName);
 
 					// Make sure that nothing sneaks out
 					opt.overflow = this.style.overflow;
@@ -293,7 +294,7 @@ jQuery.fx.prototype = {
 		(jQuery.fx.step[this.prop] || jQuery.fx.step._default)( this );
 
 		// Set display property to block for height/width animations
-		if ( ( this.prop === "height" || this.prop === "width" ) && this.elem.style && jQuery.fx.tableTag.test(this.elem.tagName)) {
+		if ( ( this.prop === "height" || this.prop === "width" ) && this.elem.style && !this.options.protectDisplay) {
 			this.elem.style.display = "block";
 		}
 	},
@@ -461,9 +462,8 @@ jQuery.extend( jQuery.fx, {
 			}
 		}
 	},
-
-	// Regex used to maintain the display property of animated table elements 
-	tableTag: new RegExp("/(TABLE|TR|TD|TH|THEAD|TBODY|TFOOT)/")
+	// Regex used to preserve display property of certain elements
+	protect: new RegExp("/TABLE|TR|TD|TH|THEAD|TBODY|TFOOT/")
 
 });
 

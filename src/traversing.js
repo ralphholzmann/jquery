@@ -168,12 +168,12 @@ jQuery.each({
 		return jQuery.dir( elem, "parentNode", until );
 	},
 	next: function( elem, i, until ) {
-		return (typeof(until) == "number" && until > 1) ? 
+		return (typeof(until) === "number" && until > 1) ? 
 			jQuery.nth( elem, (until + 1), "nextSibling" ) : 
 			jQuery.nth( elem, 2, "nextSibling" );
 	},
 	prev: function( elem, i, until ) {
-		return (typeof(until) == "number" && until > 1) ? 
+		return (typeof(until) === "number" && until > 1) ? 
 			jQuery.nth( elem, (until + 1), "previousSibling" ) : 
 			jQuery.nth( elem, 2, "previousSibling" );
 	},

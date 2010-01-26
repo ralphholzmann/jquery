@@ -157,8 +157,13 @@ jQuery.fn.extend({
 });
 
 jQuery.each({
-	parent: function( elem ) {
+	parent: function( elem, i, until ) {
 		var parent = elem.parentNode;
+		if ( typeof( until ) === "number" && until > 1 ) {
+			while ( --until ) {
+				parent = parent.parentNode;
+			}
+		}
 		return parent && parent.nodeType !== 11 ? parent : null;
 	},
 	parents: function( elem ) {
@@ -168,14 +173,12 @@ jQuery.each({
 		return jQuery.dir( elem, "parentNode", until );
 	},
 	next: function( elem, i, until ) {
-		return (typeof(until) === "number" && until > 1) ? 
-			jQuery.nth( elem, (until + 1), "nextSibling" ) : 
-			jQuery.nth( elem, 2, "nextSibling" );
+		until = ( typeof( until ) === "number" && until > 1 ) ? ( until + 1 ) : 2;
+		return jQuery.nth( elem, until, "nextSibling" );
 	},
 	prev: function( elem, i, until ) {
-		return (typeof(until) === "number" && until > 1) ? 
-			jQuery.nth( elem, (until + 1), "previousSibling" ) : 
-			jQuery.nth( elem, 2, "previousSibling" );
+		until = ( typeof( until ) === "number" && until > 1 ) ? ( until + 1 ) : 2;
+		return jQuery.nth( elem, until, "previousSibling" );
 	},
 	nextAll: function( elem ) {
 		return jQuery.dir( elem, "nextSibling" );

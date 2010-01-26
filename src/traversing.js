@@ -167,11 +167,15 @@ jQuery.each({
 	parentsUntil: function( elem, i, until ) {
 		return jQuery.dir( elem, "parentNode", until );
 	},
-	next: function( elem ) {
-		return jQuery.nth( elem, 2, "nextSibling" );
+	next: function( elem, i, until ) {
+		return (typeof(until) == "number" && until > 1) ? 
+			jQuery.nth( elem, (until + 1), "nextSibling" ) : 
+			jQuery.nth( elem, 2, "nextSibling" );
 	},
-	prev: function( elem ) {
-		return jQuery.nth( elem, 2, "previousSibling" );
+	prev: function( elem, i, until ) {
+		return (typeof(until) == "number" && until > 1) ? 
+			jQuery.nth( elem, (until + 1), "previousSibling" ) : 
+			jQuery.nth( elem, 2, "previousSibling" );
 	},
 	nextAll: function( elem ) {
 		return jQuery.dir( elem, "nextSibling" );
